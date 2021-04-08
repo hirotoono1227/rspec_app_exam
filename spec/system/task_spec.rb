@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Task', type: :system do
   let(:project) { create(:project) }
   let(:task) { create(:task) }
+  let(:task_done) { create(:task, :done) }
 
   describe 'Task一覧' do
     context '正常系' do
@@ -57,7 +58,7 @@ RSpec.describe 'Task', type: :system do
 
   describe 'Task編集' do
     context '正常系' do
-      it 'Taskを編集した場合、一覧画面で編集後の内容が表示されること' do
+      fit 'Taskを編集した場合、一覧画面で編集後の内容が表示されること' do
         # FIXME: テストが失敗するので修正してください
         visit edit_project_task_path(project, task)
         fill_in 'Deadline', with: Time.current
@@ -80,7 +81,7 @@ RSpec.describe 'Task', type: :system do
 
       it '既にステータスが完了のタスクのステータスを変更した場合、Taskの完了日が更新されないこと' do
         # TODO: FactoryBotのtraitを利用してください
-        task_done = create(:task, :done)
+        # task_done = create(:task, :done)
         visit edit_project_task_path(project, task_done)
         select 'todo', from: 'Status'
         click_button 'Update Task'
